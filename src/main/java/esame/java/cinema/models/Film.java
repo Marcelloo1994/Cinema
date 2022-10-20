@@ -1,5 +1,8 @@
 package esame.java.cinema.models;
 
+import esame.java.cinema.archetypes.DtoArchetype;
+import esame.java.cinema.archetypes.ModelArchetype;
+import esame.java.cinema.dtos.FilmDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "film")
-public class Film {
+public class Film implements ModelArchetype {
 
     @Id
     @Column(name = "id")
@@ -35,4 +38,16 @@ public class Film {
     @OneToOne(mappedBy = "film")
     private SalaCinematografica salaCinematografica;
 
+    @Override
+    public FilmDto toDto() {
+        return FilmDto.builder()
+                .id(id)
+                .titolo(titolo)
+                .regista(regista)
+                .produttore(produttore)
+                .etaMinima(etaMinima)
+                .durata(durata)
+                .idSalaCinematografica(salaCinematografica.getId())
+                .build();
+    }
 }

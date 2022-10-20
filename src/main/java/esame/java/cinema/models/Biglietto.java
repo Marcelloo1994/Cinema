@@ -1,6 +1,10 @@
 package esame.java.cinema.models;
 
 
+import esame.java.cinema.archetypes.DtoArchetype;
+import esame.java.cinema.archetypes.ModelArchetype;
+import esame.java.cinema.dtos.BigliettoDto;
+import esame.java.cinema.dtos.SpettatoreDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +16,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "biglietto")
-public class Biglietto {
+public class Biglietto implements ModelArchetype {
 
     @Id
     @Column(name = "id")
@@ -26,4 +30,14 @@ public class Biglietto {
 
     @OneToOne(mappedBy = "biglietto")
     private Spettatore spettatore;
+
+    @Override
+    public BigliettoDto toDto() {
+        return BigliettoDto.builder()
+                .id(this.id)
+                .postoASedere(this.postoASedere)
+                .prezzo(this.prezzo)
+                .idSpettatore(spettatore.getId())
+                .build();
+    }
 }

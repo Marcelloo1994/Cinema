@@ -1,6 +1,9 @@
 package esame.java.cinema.models;
 
 
+import esame.java.cinema.archetypes.DtoArchetype;
+import esame.java.cinema.archetypes.ModelArchetype;
+import esame.java.cinema.dtos.SalaCinematograficaDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +16,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "salaCinematografica")
-public class SalaCinematografica {
+public class SalaCinematografica implements ModelArchetype {
 
 
     @Id
@@ -34,4 +37,13 @@ public class SalaCinematografica {
     @JoinColumn(name = "id_cinema")
     private Cinema cinema;
 
+    @Override
+    public SalaCinematograficaDto toDto() {
+            return SalaCinematograficaDto.builder()
+                    .id(id)
+                    .postiTotali(postiTotali)
+                    .idFilm(film.getId())
+                    .idCinema(cinema.getId())
+                    .build();
+    }
 }
