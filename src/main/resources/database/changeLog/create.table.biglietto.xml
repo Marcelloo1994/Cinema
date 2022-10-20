@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create-table-biglietto-0001" author="marcelloCescutti">
+        <comment>Create table Cinema</comment>
+
+        <createTable tableName="biglietto">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pkBiglietto"/>
+            </column>
+            <column name="id_spettatore" type="INT">
+                <constraints referencedTableName="spettatore"
+                             referencedColumnNames="id"
+                             foreignKeyName="fkBigliettoSpettatore"
+                             nullable="false"/>
+            </column>
+            <column name="posto_a_sedere" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prezzo" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="biglietto"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>

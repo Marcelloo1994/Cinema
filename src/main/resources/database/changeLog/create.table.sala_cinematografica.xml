@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create-table-sala-cinematografica-0001" author="marcelloCescutti">
+        <comment>Create table Sala Cinematografica</comment>
+
+        <createTable tableName="sala_cinematografica">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pkSalaCinematografica"/>
+            </column>
+            <column name="id_cinema" type="INT">
+                <constraints referencedTableName="cinema"
+                             referencedColumnNames="id"
+                             foreignKeyName="fkSalaCinematograficaCinema"
+                             nullable="false"/>
+            </column>
+            <column name="id_film" type="INT">
+                <constraints referencedTableName="film"
+                             referencedColumnNames="id"
+                             foreignKeyName="fkSalaCinematograficaFilm"
+                             nullable="false"/>
+            </column>
+            <column name="posti_totali" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="sala_cinematografica"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

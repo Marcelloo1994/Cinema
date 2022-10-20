@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="create-table-spettatore-0001" author="marcelloCescutti">
+        <comment>Create table Spettatore</comment>
+
+        <createTable tableName="spettatore">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" primaryKeyName="pkSpettatore"/>
+            </column>
+            <column name="id_salaCinematografica" type="id">
+                <constraints referencedTableName="sala_cinematografica"
+                             referencedColumnNames="id"
+                             foreignKeyName="fkSpettatoreSalaCinematografica"
+                             nullable="false"/>
+            </column>
+            <column name="id_biglietto" type="INT">
+                <constraints referencedTableName="biglietto"
+                             referencedColumnNames="id"
+                             foreignKeyName="fkSpettatoreBiglietto"
+                             nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cognome" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_nascita" type="LOCALDATE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="spettatore"/>
+        </rollback>
+
+    </changeSet>
+</databaseChangeLog>
