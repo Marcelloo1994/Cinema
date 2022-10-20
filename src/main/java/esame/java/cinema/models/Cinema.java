@@ -29,7 +29,7 @@ public class Cinema implements ModelArchetype {
     public CinemaDto toDto() {
         return CinemaDto.builder()
                 .id(this.id)
-                .saleCinematograficheList(saleCinematografiche)
+                .saleCinematografiche(saleCinematografiche)
                 .build();
     }
 }
